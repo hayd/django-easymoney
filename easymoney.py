@@ -95,7 +95,7 @@ def _make_method(name):
     return lambda self, other, context=None: \
         self.__class__(method(self, _to_decimal(other), context=context))
 
-ops = 'add radd sub rsub mul rmul floordiv rfloordiv truediv rtruediv div rdiv mod rmod'
+ops = 'add radd sub rsub mul rmul floordiv rfloordiv truediv rtruediv rdiv mod rmod'
 for op in ops.split():
     name = '__%s__' % op
     maker = make_compare if op in {'eq', 'ne'} else _make_method
