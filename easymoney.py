@@ -95,12 +95,14 @@ def _make_method(name):
     return lambda self, other, context=None: \
         self.__class__(method(self, _to_decimal(other), context=context))
 
-ops = 'add radd sub rsub mul rmul floordiv rfloordiv truediv rtruediv rdiv mod rmod'
+ops = 'add radd sub rsub mul rmul floordiv rfloordiv truediv rtruediv mod rmod'
 for op in ops.split():
     name = '__%s__' % op
     maker = make_compare if op in {'eq', 'ne'} else _make_method
     setattr(Money, name, maker(name))
+# Decimal.__div__ and Decimal.__rdiv__ are deprecated in python 3.
 setattr(Money, '__div__', maker('__truediv__'))
+setattr(Money, '__rdiv__', maker('__rtruediv__'))
 
 
 # Model field
