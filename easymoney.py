@@ -11,6 +11,12 @@ from django.conf import settings
 __all__ = ['Money', 'MoneyField']
 
 
+try:
+    long
+except NameError:  # python 3.
+    long = int
+    unicode = str
+
 # Data class
 
 class Money(Decimal):
