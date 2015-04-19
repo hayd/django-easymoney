@@ -100,7 +100,7 @@ for op in ops.split():
     name = '__%s__' % op
     maker = make_compare if op in {'eq', 'ne'} else _make_method
     setattr(Money, name, maker(name))
-setattr(Money, '__div__', make('__truediv__'))
+setattr(Money, '__div__', maker('__truediv__'))
 
 
 # Model field
